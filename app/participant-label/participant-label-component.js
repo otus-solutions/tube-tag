@@ -27,9 +27,7 @@
           displayValue: true,
           font: "monospace",
           textAlign: "center",
-          fontSize: 10,
-          //   backgroundColor: "",
-          //   lineColor: "#000"
+          fontSize: 10
         }
         self.renderBarcode = renderBarcode;
         self.BaseInfo = angular.copy(self.base);
@@ -41,7 +39,7 @@
 
         function renderBarcode() {
           var barcodeContainer = $element.find('svg')[0];
-          JsBarcode(barcodeContainer, self.base.recruitment_number, BARCODE_SETTINGS);
+          JsBarcode(barcodeContainer, self.base, BARCODE_SETTINGS);
         }
       }
 }());
