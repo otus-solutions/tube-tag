@@ -1,9 +1,24 @@
-<md-input-container>
-  <label>Início</label>
-  <input ng-model="inicio">
-</md-input-container>
-<md-input-container>
-  <label>Final</label>
-  <input ng-model="fim">
-</md-input-container>
-<md-button class="md-raised md-primary">Gerar</md-button>
+<md-content>
+  <div layout="row">
+    <div layout="column">
+
+      <svg id="barcode"></svg>
+
+
+    </div>
+    <span flex></span>
+    <div layout="column" layout-padding>
+      <md-input-container>
+        <label>Início</label>
+        <input ng-model="inicio">
+      </md-input-container>
+      <md-input-container>
+        <label>Final</label>
+        <input ng-model="fim">
+      </md-input-container>
+      <md-button class="md-raised md-primary" ng-click="$ctrl.build()">Gerar</md-button>
+    </div>
+    <span flex></span>
+
+  </div>
+</md-content>
