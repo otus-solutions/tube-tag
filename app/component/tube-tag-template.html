@@ -1,20 +1,23 @@
+
+<div id="print-page">
 <md-content>
   <div layout="row">
     <div layout="column">
 
-      <svg id="barcode"></svg>
+      <custom-tag ng-if="$ctrl.range" ng-repeat="number in $ctrl.range track by $index" base="number"></custom-tag>
 
 
     </div>
+<input class="no-print button" type="button" value="Imprimir" onclick="window.print()">
     <span flex></span>
     <div layout="column" layout-padding>
       <md-input-container>
         <label>Início</label>
-        <input ng-model="inicio">
+        <input numbers-only ng-model="inicio">
       </md-input-container>
       <md-input-container>
         <label>Final</label>
-        <input ng-model="fim">
+        <input numbers-only ng-model="fim">
       </md-input-container>
       <md-button class="md-raised md-primary" ng-click="$ctrl.build()">Gerar</md-button>
     </div>
@@ -22,3 +25,4 @@
 
   </div>
 </md-content>
+</div

@@ -16,29 +16,33 @@
 
     self.isValid = isValid;
     self.build = build;
-
+    self.range = [];
 
     function onInit() {
 
 
     }
 
-    function isValid() {
-      var inicio = $scope.inicio;
-      var fim = $scope.fim;
-      console.log(fim);
-
+    function isValid(inicio,fim) {
       if (inicio < fim) {
         return true;
       } else {
         return false;
       }
-
     }
 
     function build() {
-      var status = self.isValid();
-      console.log(status);
+      self.range = [];
+      var inicio = Number($scope.inicio);
+      var fim = Number($scope.fim);
+      var status = self.isValid(inicio,fim);
+      if(status){
+        for(var i = inicio; i <= fim; i++){
+
+          self.range.push(i);
+        }
+        console.log(self.range);
+      }
     }
 
 

@@ -3,9 +3,9 @@
 
     angular
       .module('tubeTagGenerator')
-      .component('participantLabel', {
+      .component('customTag', {
           transclude: true,
-          templateUrl: 'app/participant-label/participant-label-template.html',
+          templateUrl: 'app/custom-tag/custom-tag-template.html',
           controller: Controller,
           bindings: {
             base: '<'
