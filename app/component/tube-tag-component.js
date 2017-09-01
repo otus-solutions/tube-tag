@@ -19,7 +19,7 @@
     self.range = [];
 
     function onInit() {
-
+      self.range = [123456789,123456789,123456789,123456789,123456789,123456789,123456789,123456789,123456789,123456789]
 
     }
 
@@ -38,10 +38,10 @@
       var status = self.isValid(inicio,fim);
       if(status){
         for(var i = inicio; i <= fim; i++){
-
           self.range.push(i);
         }
-        console.log(self.range);
+        self.customTag.generator();
+        // console.log(self.range);
       }
     }
 

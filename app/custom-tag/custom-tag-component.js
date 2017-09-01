@@ -1,45 +1,58 @@
 (function() {
-    'use strict';
+  'use strict';
 
-    angular
-      .module('tubeTagGenerator')
-      .component('customTag', {
-          transclude: true,
-          templateUrl: 'app/custom-tag/custom-tag-template.html',
-          controller: Controller,
-          bindings: {
-            base: '<'
-          }
-      });
-
-      Controller.$inject = [
-        '$scope',
-        '$element',
-        '$compile'
-      ];
-
-      function Controller($scope, $element, $compile) {
-        var self = this;
-        var BARCODE_SETTINGS = {
-          format: 'CODE39',
-          width: 1.1,
-          height: 15,
-          displayValue: true,
-          font: "monospace",
-          textAlign: "center",
-          fontSize: 10
-        }
-        self.renderBarcode = renderBarcode;
-        self.BaseInfo = angular.copy(self.base);
-
-        self.$onInit = function() {
-          $compile($element.contents())($scope);
-          renderBarcode();
-        };
-
-        function renderBarcode() {
-          var barcodeContainer = $element.find('svg')[0];
-          JsBarcode(barcodeContainer, self.base, BARCODE_SETTINGS);
-        }
+  angular
+    .module('tubeTagGenerator')
+    .component('customTag', {
+      transclude: true,
+      templateUrl: 'app/custom-tag/custom-tag-template.html',
+      controller: Controller,
+      bindings: {
+        base: '='
+      },
+      require: {
+        tubeTag: '^tubeTag'
       }
+    });
+
+  Controller.$inject = [
+    '$scope',
+    '$element',
+    '$compile'
+  ];
+
+  function Controller($scope, $element, $compile) {
+    var self = this;
+    var BARCODE_SETTINGS = {
+      format: 'CODE39',
+      width: 1.1,
+      height: 15,
+      displayValue: true,
+      font: "monospace",
+      textAlign: "center",
+      fontSize: 10
+    }
+    self.renderBarcode = renderBarcode;
+    self.BaseInfo = angular.copy(self.base);
+    self.generator = generator;
+
+    self.$onInit = onInit
+
+    function onInit() {
+      self.tubeTag.customTag = self;
+      self.generator();
+    };
+
+    function renderBarcode() {
+      var barcodeContainer = $element.find('svg')[0];
+      console.log(self.base);
+      JsBarcode(barcodeContainer, self.base, BARCODE_SETTINGS);
+
+    }
+
+    function generator() {
+      $compile($element.contents())($scope);
+      renderBarcode();
+    }
+  }
 }());

@@ -1,7 +1,12 @@
 <div class="label">
-   <div class="label-text">
-       <h3>{{$ctrl.base}}</h3>
-       <span>CQ:{{$ctrl.base}}</span></br>
-   </div>
-   <svg id="0" class="barcode"></svg>
+  <div class="label-text">
+    <p>{{$ctrl.base}}</p>
+    <div ng-style='{"overflow": "hidden","white-space": "nowrap","text-overflow": "ellipsis"}'>
+      <span>{{$ctrl.base}}</span></br>
+    </div>
+    <span>NR:{{$ctrl.base}}    Sexo:{{$ctrl.base}}</span></br>
+    <span>DN:{{$ctrl.base}}</span></br>
+
+  </div>
+  <svg id="{{0}}" class="barcode"></svg>
 </div>
