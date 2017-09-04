@@ -40,7 +40,7 @@
       function _constructor() {
         self.loading_screen = pleaseWait({
             logo: "app/static-resource/image/freecode.jpg",
-            backgroundColor: '#FFDAB9',
+            backgroundColor: '#8EC0F5',
             loadingHtml: "<p class='loading-message' style='color:#000;'>" + self.message + "</p>" +
               "<div class = 'sk-spinner sk-spinner-wave' >" +
               "<div class = 'sk-rect1' > </div>" +
