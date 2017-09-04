@@ -1,38 +1,36 @@
-<toolbar-tag class="no-print"></toolbar-tag>
-<div layout="row" flex>
-
-  <div layout="column" layout-margin class="no-print" flex="20">
+<md-content layout="column" flex>
+  <toolbar-tag class="no-print"></toolbar-tag>
+  <div layout="row" flex>
+    <div layout="column" layout-margin class="no-print" flex="20">
       <md-input-container>
-      <label>Campo 1</label>
-      <input ng-disabled="$ctrl.building" ng-model="customOne">
-    </md-input-container>
-    <md-input-container>
-      <label>Campo 2</label>
-      <input ng-disabled="$ctrl.building" ng-model="customTwo">
-    </md-input-container>
-    <md-input-container>
-      <label>Campo 3</label>
-      <input ng-disabled="$ctrl.building" ng-model="customThree">
-    </md-input-container>
-    <md-input-container>
-      <label>Nº inicial</label>
-      <input numbers-only ng-disabled="$ctrl.building" ng-model="begin" required>
-    </md-input-container>
-    <md-input-container>
-      <label>Nº final</label>
-      <input numbers-only ng-disabled="$ctrl.building" ng-model="end" required>
-    </md-input-container>
+        <label>Campo 1</label>
+        <input ng-disabled="$ctrl.building" ng-model="customOne">
+      </md-input-container>
+      <md-input-container>
+        <label>Campo 2</label>
+        <input ng-disabled="$ctrl.building" ng-model="customTwo">
+      </md-input-container>
+      <md-input-container>
+        <label>Campo 3</label>
+        <input ng-disabled="$ctrl.building" ng-model="customThree">
+      </md-input-container>
+      <md-input-container>
+        <label>Nº inicial</label>
+        <input numbers-only ng-disabled="$ctrl.building" ng-model="begin" required>
+      </md-input-container>
+      <md-input-container>
+        <label>Nº final</label>
+        <input numbers-only ng-disabled="$ctrl.building" ng-model="end" required>
+      </md-input-container>
 
-    <md-button class="md-raised md-primary" ng-click="$ctrl.build()" ng-disabled="$ctrl.building" >Gerar</md-button>
-    <md-button ng-if="$ctrl.fields.length>0" class="md-raised no-print" ng-disabled="$ctrl.building" onclick="window.print()">Imprimir</md-button>
-    <p class="md-body-1">{{$ctrl.resolving}}</p>
+      <md-button class="md-raised md-primary" ng-click="$ctrl.build()" ng-disabled="$ctrl.building">Gerar</md-button>
+      <p class="md-body-1">{{$ctrl.resolving}}</p>
+    </div>
+    <div id="print-page">
+      <custom-tag ng-if="$ctrl.range" ng-repeat="number in $ctrl.fields track by $index" base="number"></custom-tag>
+    </div>
   </div>
-
-
-
-  <span flex></span>
-  <div id="print-page">
-    <custom-tag ng-if="$ctrl.range" ng-repeat="number in $ctrl.fields track by $index" base="number"></custom-tag>
-  </div>
-  <span flex></span>
-</div>
+</md-content>
+<md-button class="no-print md-fab md-fab-bottom-right md-raised md-primary" aria-label="Imprimir" onclick="window.print()">
+  <md-icon md-font-set="material-icons">print</md-icon>
+</md-button>
