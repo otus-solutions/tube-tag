@@ -45,8 +45,7 @@
 
     function renderBarcode() {
       var barcodeContainer = $element.find('svg')[0];
-      console.log(self.base);
-      JsBarcode(barcodeContainer, self.base, BARCODE_SETTINGS);
+      JsBarcode(barcodeContainer, self.base.number, BARCODE_SETTINGS);
 
     }
 

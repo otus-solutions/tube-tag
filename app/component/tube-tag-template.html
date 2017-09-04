@@ -1,25 +1,42 @@
 <div layout="row" flex>
-  <div id="print-page">
 
 
+  <div layout="column" layout-margin class="no-print" flex="20">
+    <md-input-container>
+      <label>Título</label>
+      <input ng-disabled="$ctrl.building" ng-model="title">
+    </md-input-container>
+    <md-input-container>
+      <label>Campo 1</label>
+      <input ng-disabled="$ctrl.building" ng-model="customOne">
+    </md-input-container>
+    <md-input-container>
+      <label>Campo 2</label>
+      <input ng-disabled="$ctrl.building" ng-model="customTwo">
+    </md-input-container>
+    <md-input-container>
+      <label>Campo 3</label>
+      <input ng-disabled="$ctrl.building" ng-model="customThree">
+    </md-input-container>
+    <md-input-container>
+      <label>Nº inicial</label>
+      <input numbers-only ng-disabled="$ctrl.building" ng-model="begin" required>
+    </md-input-container>
+    <md-input-container>
+      <label>Nº final</label>
+      <input numbers-only ng-disabled="$ctrl.building" ng-model="end" required>
+    </md-input-container>
 
-    <custom-tag ng-if="$ctrl.range" ng-repeat="number in $ctrl.range track by $index" base="number"></custom-tag>
-
-
+    <md-button class="md-raised md-primary" ng-click="$ctrl.build()" ng-disabled="$ctrl.building" >Gerar</md-button>
+    <md-button ng-if="$ctrl.fields.length>0" class="md-raised no-print" ng-disabled="$ctrl.building" onclick="window.print()">Imprimir</md-button>
+    <p class="md-body-1">{{$ctrl.resolving}}</p>
   </div>
 
 
-  <div layout="column" layout-padding class="no-print" flex="20">
-    <md-input-container>
-      <label>Início</label>
-      <input numbers-only ng-model="inicio">
-    </md-input-container>
-    <md-input-container>
-      <label>Final</label>
-      <input numbers-only ng-model="fim">
-    </md-input-container>
-    <md-button class="md-raised md-primary" ng-click="$ctrl.build()">Gerar</md-button>
-    <md-button ng-if="$ctrl.range.length>0" class="md-raised md-warn no-print" onclick="window.print()">Imprimir</md-button>
+
+  <span flex></span>
+  <div id="print-page">
+    <custom-tag ng-if="$ctrl.range" ng-repeat="number in $ctrl.fields track by $index" base="number"></custom-tag>
   </div>
   <span flex></span>
 </div>
