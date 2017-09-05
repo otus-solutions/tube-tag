@@ -15,62 +15,35 @@
 
   function Controller($q, $scope, LoadingScreenService, UploadService) {
     var self = this;
+
     self.$onInit = onInit;
 
     self.isValid = isValid;
     self.build = build;
-    self.range = [];
-    self.fields = [];
-    self.valid = false;
     self.setFile = setFile;
 
-
     function onInit() {
+      self.range = [];
+      self.fields = [];
+      self.valid = false;
       self.flag = false;
-      self.fields = [{
-        "title": "Título",
-        "customOne": "Campo 1",
-        "customTwo": "Campo 2",
-        "customThree": "Campo 3",
-        "number": 123456789
-      }, {
-        "title": "Título",
-        "customOne": "Campo 1",
-        "customTwo": "Campo 2",
-        "customThree": "Campo 3",
-        "number": 123456789
-      }, {
-        "title": "Título",
-        "customOne": "Campo 1",
-        "customTwo": "Campo 2",
-        "customThree": "Campo 3",
-        "number": 123456789
-      }, {
-        "title": "Título",
-        "customOne": "Campo 1",
-        "customTwo": "Campo 2",
-        "customThree": "Campo 3",
-        "number": 123456789
-      }];
-      console.log(self.fields);
+      _fakeLabeGenerator();
+    }
 
-
+    function _fakeLabeGenerator() {
+      for (let i = 0; i < 11; i++) {
+        self.fields.push({
+          "title": "Título",
+          "customOne": "Campo 1",
+          "customTwo": "Campo 2",
+          "customThree": "Campo 3",
+          "number": 123456789+i
+        });
+      }
     }
 
     function isValid() {
-      self.end = '';
-      self.begin = Number($scope.begin);
-      if (self.flag) {
-        if (self.begin) {
-          self.end = self.begin + self.fieldsArray.length-1;
-        }else{
-          self.end = '';
-        }
-      } else {
-        self.end = '';
-        self.end = Number($scope.end);
-      }
-
+      _populateRange();
       if (self.begin <= self.end) {
         self.valid = true;
       } else {
@@ -78,14 +51,25 @@
       }
     }
 
+    function _populateRange() {
+      self.begin = Number($scope.begin);
+      if (self.flag) {
+        if (self.begin) {
+          self.end = self.begin + self.fieldsArray.length-1;
+        } else {
+          self.end = '';
+        }
+      } else {
+        self.end = Number($scope.end);
+      }
+    }
+
     function setFile() {
       if (!self.flag) {
         var deferred = $q.defer();
         setTimeout(function() {
-
           self.file = UploadService.getFile();
-          _csvJSON();
-          console.log(self.fieldsArray);
+          _csvToArray();
         }, 100);
         self.flag = true;
       }
@@ -94,28 +78,31 @@
 
     function build() {
       LoadingScreenService.start();
-      // self.begin = Number($scope.begin);
-      // self.end = Number($scope.end);
-      self.building = true;
+      _generateLabelFields().then(function(response) {
+        LoadingScreenService.finish();
+      }, function(reason) {
+        alert('Failed: ' + reason);
+        LoadingScreenService.finish();
+      });
+    }
 
+    function _generateLabelFields() {
       var deferred = $q.defer();
-
       self.fields = [];
-      var count = 0;
       setTimeout(function() {
         if (self.valid) {
-          console.log($scope.customOne);
           if(self.flag){
-            for (var i = self.begin; i <= self.end; i++) {
-              self.fields.push({
-                "title": $scope.title,
-                "customOne": String(self.fieldsArray[count][0]),
-                "customTwo": String(self.fieldsArray[count][1]),
-                "customThree": String(self.fieldsArray[count][2]),
-                "number": i
-              });
-              count++;
-            }
+            self.fieldsArray.forEach(function(line) {
+              for (var i = self.begin; i <= self.end; i++) {
+                self.fields.push({
+                  "title": $scope.title,
+                  "customOne": line[0],
+                  "customTwo": line[1],
+                  "customThree": line[2],
+                  "number": i
+                });
+              }
+            });
           } else {
             for (var i = self.begin; i <= self.end; i++) {
               self.fields.push({
@@ -126,33 +113,23 @@
                 "number": i
               });
             }
-
-
           }
-          console.log(self.fields);
         }
         deferred.resolve();
-
       }, 500);
-      deferred.promise.then(function(response) {
-        LoadingScreenService.finish();
 
-        self.building = false;
-        self.resolving = "";
-      }, function(reason) {
-        alert('Failed: ' + reason);
-      });
-
+      return deferred.promise;
     }
 
-    function _csvJSON() {
+    function _csvToArray() {
       var lines = self.file.split("\n");
       lines.pop();
+
       var lineFields = [];
+
       self.fieldsArray = [];
       lines.forEach(function(line) {
         line = line.split(",");
-
         line.forEach(function(field) {
           lineFields.push(field);
         });

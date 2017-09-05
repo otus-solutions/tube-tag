@@ -5,7 +5,7 @@
     .module('tubeTagGenerator')
     .component('customTag', {
       transclude: true,
-      templateUrl: 'app/ux-component/custom-tag/custom-tag-template.html',
+      templateUrl: 'app/ux-component/tube-tag/custom-tag/custom-tag-template.html',
       controller: Controller,
       bindings: {
         base: '='
@@ -23,6 +23,7 @@
 
   function Controller($scope, $element, $compile) {
     var self = this;
+
     var BARCODE_SETTINGS = {
       format: 'CODE39',
       width: 1.1,
@@ -33,13 +34,14 @@
       textAlign: "center",
       fontSize: 10
     }
-    self.renderBarcode = renderBarcode;
-    self.BaseInfo = angular.copy(self.base);
-    self.generator = generator;
 
-    self.$onInit = onInit
+    self.renderBarcode = renderBarcode;
+    self.generator = generator;
+    self.$onInit = onInit;
+
 
     function onInit() {
+      self.BaseInfo = angular.copy(self.base);
       self.tubeTag.customTag = self;
       self.generator();
     };

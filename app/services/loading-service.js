@@ -8,13 +8,15 @@
     function Service() {
       var self = this;
       var MESSAGE = 'Por favor, aguarde o carregamento.';
+
       /* Lifecycle hooks */
       self.$onInit = onInit;
+
       /* Public methods */
       self.start = start;
       self.finish = finish;
       self.changeMessage = changeMessage;
-      onInit();
+    
       /* Lifecycle methods */
       function onInit() {
         self.loading_screen = null;

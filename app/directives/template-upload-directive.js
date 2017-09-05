@@ -27,8 +27,6 @@
 
           if (_comprova_extensao(fileToUpload.name)) {
             _uploadSurveyTemplate(fileToUpload);
-            //input.click();
-            //button.bind('click', function(e) {
               $scope.$apply(function() {
                 var files = fileToUpload;
                 if (files) {
@@ -37,11 +35,7 @@
                   $scope.fileName = null;
                 }
               });
-            //});
           }
-
-
-
         });
       });
 
@@ -71,7 +65,6 @@
 
 
       function _chooseFile() {
-          $scope.fileName = 'Selecione o arquivo utilizando o botão para realizar o upload';
           var button = angular.element(element[0].querySelector('button#uploadButton'));
           var input = angular.element(element[0].querySelector('input#fileInput'));
 
@@ -80,7 +73,7 @@
               input[0].click();
             });
           }
-
+          
           input.bind('change', function(e) {
             $scope.$apply(function() {
               var files = e.target.files;
