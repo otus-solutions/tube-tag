@@ -16,11 +16,12 @@
       self.start = start;
       self.finish = finish;
       self.changeMessage = changeMessage;
-    
+
       /* Lifecycle methods */
       function onInit() {
         self.loading_screen = null;
-        changeMessage();
+        self.message = MESSAGE;
+        // changeMessage();
       }
 
       function start() {
@@ -43,7 +44,7 @@
         self.loading_screen = pleaseWait({
             logo: "app/static-resource/image/freecode.jpg",
             backgroundColor: '#8EC0F5',
-            loadingHtml: "<p class='loading-message' style='color:#000;'>" + self.message + "</p>" +
+            loadingHtml: "<p class='loading-message' style='color:#000;'>Por favor, aguarde o carregamento.</p>" +
               "<div class = 'sk-spinner sk-spinner-wave' >" +
               "<div class = 'sk-rect1' > </div>" +
               "<div class = 'sk-rect2' > </div>" +
