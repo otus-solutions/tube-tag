@@ -9,10 +9,11 @@
   Controller.$inject = [
     '$q',
     '$scope',
-    'LoadingScreenService'
+    'LoadingScreenService',
+    'UploadService'
   ]
 
-  function Controller($q, $scope, LoadingScreenService) {
+  function Controller($q, $scope, LoadingScreenService, UploadService) {
     var self = this;
     self.$onInit = onInit;
 
@@ -20,6 +21,8 @@
     self.build = build;
     self.range = [];
     self.fields = [];
+    $scope.valid = false;
+    self.teste = teste;
 
     function onInit() {
       self.fields = [{
@@ -52,28 +55,34 @@
 
     }
 
-    function isValid(begin, end) {
-      if (begin <= end) {
+    function isValid() {
+      self.begin = Number($scope.begin);
+      self.end = Number($scope.end);
+      if (self.begin <= self.end) {
+        $scope.valid = true;
         return true;
       } else {
+        $scope.valid = false;
         return false;
       }
     }
 
+    function teste() {
+      console.log(UploadService.getFile());
+    }
     function build() {
       LoadingScreenService.start();
       self.building = true;
       self.resolving = "As etiquetas estão sendo geradas...";
       var deferred = $q.defer();
-      var begin = Number($scope.begin);
-      var end = Number($scope.end);
+
 
       self.fields = [];
       var count = 0;
       setTimeout(function() {
-        if (self.isValid(begin, end)) {
+        if (self.isValid()) {
 
-          for (var i = begin; i <= end; i++) {
+          for (var i = self.begin; i <= self.end; i++) {
             self.fields.push({
               "title": $scope.title,
               "customOne": $scope.customOne,

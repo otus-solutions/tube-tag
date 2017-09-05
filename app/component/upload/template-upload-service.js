@@ -11,18 +11,18 @@
 
     function UploadService($mdToast) {
         var self = this;
-        var jsonReaded;
-
+        self.csvReaded;
+        self.getFile = getFile;
         self.upload = upload;
 
         function upload(fileSurveyTemplate) {
             var reader = new FileReader();
             reader.readAsText(fileSurveyTemplate);
-
+            console.log('teste1');
             reader.onload = function() {
-                jsonReaded = reader.result;
-                console.log(jsonReaded);
-              
+                self.csvReaded = reader.result;
+                console.log(self.csvReaded);
+
 
                 // promise.then(function(value) {
                 //     if (value) {
@@ -33,6 +33,10 @@
                 // });
 
             };
+        }
+
+        function getFile() {
+          return self.csvReaded;
         }
 
         function _getErrorMessage(error) {
