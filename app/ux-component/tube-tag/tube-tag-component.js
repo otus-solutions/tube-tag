@@ -3,7 +3,7 @@
   angular
     .module('tubeTagGenerator')
     .component('tubeTag', {
-      templateUrl: 'app/component/tube-tag-template.html',
+      templateUrl: 'app/ux-component/tube-tag/tube-tag-template.html',
       controller: Controller
     });
   Controller.$inject = [
@@ -79,7 +79,6 @@
     }
 
     function setFile() {
-
       if (!self.flag) {
         var deferred = $q.defer();
         setTimeout(function() {
@@ -90,7 +89,6 @@
         }, 100);
         self.flag = true;
       }
-
       return self.flag;
     }
 
@@ -106,6 +104,7 @@
       var count = 0;
       setTimeout(function() {
         if (self.valid) {
+          console.log($scope.customOne);
           if(self.flag){
             for (var i = self.begin; i <= self.end; i++) {
               self.fields.push({

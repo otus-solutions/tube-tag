@@ -5,7 +5,7 @@
     .module('tubeTagGenerator')
     .component('customTag', {
       transclude: true,
-      templateUrl: 'app/custom-tag/custom-tag-template.html',
+      templateUrl: 'app/ux-component/custom-tag/custom-tag-template.html',
       controller: Controller,
       bindings: {
         base: '='

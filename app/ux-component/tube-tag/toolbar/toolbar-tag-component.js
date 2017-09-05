@@ -3,6 +3,6 @@
   angular
   .module('tubeTagGenerator')
   .component('toolbarTag',{
-    templateUrl: 'app/component/toolbar-tag-template.html'
+    templateUrl: 'app/ux-component/tube-tag/toolbar/toolbar-tag-template.html'
   })
 }());

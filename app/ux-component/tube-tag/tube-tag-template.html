@@ -2,11 +2,6 @@
   <toolbar-tag class="no-print"></toolbar-tag>
   <div layout="row" flex>
     <div layout="column" layout-margin class="no-print" flex="30">
-      <!-- <ng-csv-import content="csv.content"
-          header="csv.header"
-          separator="csv.separator"
-          result="csv.result"></ng-csv-import> -->
-
       <md-input-container ng-if="fileName">
         <input id="fileInput" ng-disabled="true" aria-label="Arquivo" ng-model="fileName" ng-if="$ctrl.setFile()">
       </md-input-container>
@@ -15,15 +10,15 @@
         <label>Título</label>
         <input ng-disabled="$ctrl.building" ng-model="title" maxlength="20" required>
       </md-input-container>
-      <md-input-container ng-if="!fileName">
+      <md-input-container ng-show="!fileName">
         <label>Campo 1</label>
         <input ng-disabled="$ctrl.building" ng-model="customOne" maxlength="20">
       </md-input-container>
-      <md-input-container ng-if="!fileName">
+      <md-input-container ng-show="!fileName">
         <label>Campo 2</label>
         <input ng-disabled="$ctrl.building" ng-model="customTwo" maxlength="20">
       </md-input-container>
-      <md-input-container ng-if="!fileName">
+      <md-input-container ng-show="!fileName">
         <label>Campo 3</label>
         <input ng-disabled="$ctrl.building" ng-model="customThree" maxlength="20">
       </md-input-container>
@@ -40,16 +35,13 @@
         <label>Nº final</label>
         <input numbers-only  ng-model="end" ng-change="$ctrl.isValid()" maxlength="11" required>
       </md-input-container>
-
       <md-button class="md-raised md-primary" ng-disabled="!$ctrl.valid" ng-click="$ctrl.build()" >Gerar</md-button>
-
     </div>
   </md-content>
     <div id="print-page">
       <custom-tag ng-if="$ctrl.range" ng-repeat="number in $ctrl.fields track by $index" base="number"></custom-tag>
     </div>
   </div>
-
 <md-button class="no-print md-fab md-fab-bottom-left md-raised md-primary" aria-label="Upload" id="uploadButton" file-upload="">
   <md-icon md-font-set="material-icons">file_upload</md-icon>
 </md-button>
