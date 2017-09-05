@@ -1,7 +1,16 @@
 <md-content layout="column" flex>
   <toolbar-tag class="no-print"></toolbar-tag>
   <div layout="row" flex>
-    <div layout="column" layout-margin class="no-print" flex="20">
+    <div layout="column" layout-margin class="no-print" flex="30">
+      <!-- <ng-csv-import content="csv.content"
+          header="csv.header"
+          separator="csv.separator"
+          result="csv.result"></ng-csv-import> -->
+
+      <md-input-container>
+          <input id="fileInput" ng-disabled="true" aria-label="Arquivo" ng-model="fileName">
+      </md-input-container>
+
       <md-input-container>
         <label>Campo 1</label>
         <input ng-disabled="$ctrl.building" ng-model="customOne">
@@ -24,13 +33,18 @@
       </md-input-container>
 
       <md-button class="md-raised md-primary" ng-click="$ctrl.build()" ng-disabled="$ctrl.building">Gerar</md-button>
-      <p class="md-body-1">{{$ctrl.resolving}}</p>
+      <p class="md-body-1">{{filename}}</p>
     </div>
     <div id="print-page">
       <custom-tag ng-if="$ctrl.range" ng-repeat="number in $ctrl.fields track by $index" base="number"></custom-tag>
     </div>
   </div>
 </md-content>
+
+<md-button class="no-print md-fab md-fab-bottom-left md-raised md-primary" aria-label="Upload" id="uploadButton" file-upload="">
+  <md-icon md-font-set="material-icons">file_upload</md-icon>
+
+</md-button>
 <md-button class="no-print md-fab md-fab-bottom-right md-raised md-primary" aria-label="Imprimir" onclick="window.print()">
   <md-icon md-font-set="material-icons">print</md-icon>
 </md-button>
