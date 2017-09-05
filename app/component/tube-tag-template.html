@@ -30,15 +30,13 @@
       <md-input-container ng-if="fileName">
         <label>Nº final</label>
         <input numbers-only ng-disabled="fileName" ng-model="end" ng-value="$ctrl.begin+3" ng-change="$ctrl.isValid()" required>
-
       </md-input-container>
-      <md-input-container ng-if="!fileName">
+      <md-input-container ng-show="!fileName">
         <label>Nº final</label>
         <input numbers-only  ng-model="end" ng-change="$ctrl.isValid()" required>
-
       </md-input-container>
 
-      <md-button class="md-raised md-primary" ng-click="$ctrl.build()" >Gerar</md-button>
+      <md-button class="md-raised md-primary" ng-disabled="!$ctrl.valid" ng-click="$ctrl.build()" >Gerar</md-button>
 
     </div>
     <div id="print-page">

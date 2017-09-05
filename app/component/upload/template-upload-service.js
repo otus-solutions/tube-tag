@@ -18,10 +18,8 @@
         function upload(fileSurveyTemplate) {
             var reader = new FileReader();
             reader.readAsText(fileSurveyTemplate);
-            console.log('teste1');
             reader.onload = function() {
                 self.csvReaded = reader.result;
-                console.log(self.csvReaded);
 
 
                 // promise.then(function(value) {

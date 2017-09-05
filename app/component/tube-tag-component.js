@@ -21,7 +21,7 @@
     self.build = build;
     self.range = [];
     self.fields = [];
-    $scope.valid = false;
+    self.valid = false;
     self.teste = teste;
 
     function onInit() {
@@ -58,29 +58,28 @@
     function isValid() {
       self.begin = Number($scope.begin);
       self.end = Number($scope.end);
+
       if (self.begin <= self.end) {
-        $scope.valid = true;
-        return true;
+        self.valid = true;
       } else {
-        $scope.valid = false;
-        return false;
+        self.valid = false;
       }
     }
 
     function teste() {
       console.log(UploadService.getFile());
     }
+
     function build() {
       LoadingScreenService.start();
       self.building = true;
       self.resolving = "As etiquetas estão sendo geradas...";
       var deferred = $q.defer();
 
-
       self.fields = [];
       var count = 0;
       setTimeout(function() {
-        if (self.isValid()) {
+        if (self.valid) {
 
           for (var i = self.begin; i <= self.end; i++) {
             self.fields.push({
