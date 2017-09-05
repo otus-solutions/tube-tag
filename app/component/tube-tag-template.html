@@ -8,7 +8,7 @@
           result="csv.result"></ng-csv-import> -->
 
       <md-input-container ng-if="fileName">
-        <input id="fileInput" ng-disabled="true" aria-label="Arquivo" ng-model="fileName" ng-change="$ctrl.teste()">
+        <input id="fileInput" ng-disabled="true" aria-label="Arquivo" ng-model="fileName" ng-if="$ctrl.setFile()">
       </md-input-container>
 
       <md-input-container ng-if="!fileName">
@@ -27,10 +27,11 @@
         <label>Nº inicial</label>
         <input numbers-only ng-disabled="$ctrl.building" ng-model="begin" ng-change="$ctrl.isValid()" required>
       </md-input-container>
-      <md-input-container ng-if="fileName">
+      <md-input-container ng-show="fileName">
         <label>Nº final</label>
-        <input numbers-only ng-disabled="fileName" ng-model="end" ng-value="$ctrl.begin+3" ng-change="$ctrl.isValid()" required>
+        <input numbers-only ng-disabled="true" ng-model="end" ng-value="$ctrl.end" ng-change="$ctrl.isValid()" required>
       </md-input-container>
+
       <md-input-container ng-show="!fileName">
         <label>Nº final</label>
         <input numbers-only  ng-model="end" ng-change="$ctrl.isValid()" required>

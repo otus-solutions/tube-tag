@@ -22,28 +22,30 @@
     self.range = [];
     self.fields = [];
     self.valid = false;
-    self.teste = teste;
+    self.setFile = setFile;
+
 
     function onInit() {
+      self.flag = false;
       self.fields = [{
         "title": "Título",
         "customOne": "Campo 1",
         "customTwo": "Campo 2",
         "customThree": "Campo 3",
         "number": 123456789
-      },{
+      }, {
         "title": "Título",
         "customOne": "Campo 1",
         "customTwo": "Campo 2",
         "customThree": "Campo 3",
         "number": 123456789
-      },{
+      }, {
         "title": "Título",
         "customOne": "Campo 1",
         "customTwo": "Campo 2",
         "customThree": "Campo 3",
         "number": 123456789
-      },{
+      }, {
         "title": "Título",
         "customOne": "Campo 1",
         "customTwo": "Campo 2",
@@ -57,7 +59,16 @@
 
     function isValid() {
       self.begin = Number($scope.begin);
-      self.end = Number($scope.end);
+      if (self.flag) {
+        if (self.begin) {
+          self.end = self.begin + self.fieldsArray.length-1;
+        }else{
+          self.end = '';
+        }
+      } else {
+
+        self.end = Number($scope.end);
+      }
 
       if (self.begin <= self.end) {
         self.valid = true;
@@ -66,29 +77,57 @@
       }
     }
 
-    function teste() {
-      console.log(UploadService.getFile());
+    function setFile() {
+
+      if (!self.flag) {
+        var deferred = $q.defer();
+        setTimeout(function() {
+
+          self.file = UploadService.getFile();
+          _csvJSON();
+          console.log(self.fieldsArray);
+        }, 100);
+        self.flag = true;
+      }
+
+      return self.flag;
     }
 
     function build() {
       LoadingScreenService.start();
+      // self.begin = Number($scope.begin);
+      // self.end = Number($scope.end);
       self.building = true;
-      self.resolving = "As etiquetas estão sendo geradas...";
+
       var deferred = $q.defer();
 
       self.fields = [];
       var count = 0;
       setTimeout(function() {
         if (self.valid) {
+          if(self.flag){
+            for (var i = self.begin; i <= self.end; i++) {
+              self.fields.push({
+                "title": $scope.title,
+                "customOne": self.fieldsArray[count][0],
+                "customTwo": self.fieldsArray[count][1],
+                "customThree": self.fieldsArray[count][2],
+                "number": i
+              });
+              count++;
+            }
+          } else {
+            for (var i = self.begin; i <= self.end; i++) {
+              self.fields.push({
+                "title": $scope.title,
+                "customOne": $scope.customOne,
+                "customTwo": $scope.customTwo,
+                "customThree": $scope.customThree,
+                "number": i
+              });
+            }
 
-          for (var i = self.begin; i <= self.end; i++) {
-            self.fields.push({
-              "title": $scope.title,
-              "customOne": $scope.customOne,
-              "customTwo": $scope.customTwo,
-              "customThree": $scope.customThree,
-              "number": i
-            });
+
           }
         }
         deferred.resolve();
@@ -103,6 +142,22 @@
         alert('Failed: ' + reason);
       });
 
+    }
+
+    function _csvJSON() {
+      var lines = self.file.split("\n");
+      lines.pop();
+      var lineFields = [];
+      self.fieldsArray = [];
+      lines.forEach(function(line) {
+        line = line.split(",");
+
+        line.forEach(function(field) {
+          lineFields.push(field);
+        });
+        self.fieldsArray.push(lineFields);
+        lineFields = [];
+      });
     }
 
 
