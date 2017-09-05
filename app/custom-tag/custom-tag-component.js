@@ -27,7 +27,7 @@
       format: 'CODE39',
       width: 1.1,
       height: 15,
-      displayValue: false,
+      displayValue: true,
       textmargin: 0,
       font: "monospace",
       textAlign: "center",

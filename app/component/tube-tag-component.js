@@ -52,12 +52,13 @@
         "customThree": "Campo 3",
         "number": 123456789
       }];
-      //self.range = [];
+      console.log(self.fields);
 
 
     }
 
     function isValid() {
+      self.end = '';
       self.begin = Number($scope.begin);
       if (self.flag) {
         if (self.begin) {
@@ -66,7 +67,7 @@
           self.end = '';
         }
       } else {
-
+        self.end = '';
         self.end = Number($scope.end);
       }
 
@@ -109,9 +110,9 @@
             for (var i = self.begin; i <= self.end; i++) {
               self.fields.push({
                 "title": $scope.title,
-                "customOne": self.fieldsArray[count][0],
-                "customTwo": self.fieldsArray[count][1],
-                "customThree": self.fieldsArray[count][2],
+                "customOne": String(self.fieldsArray[count][0]),
+                "customTwo": String(self.fieldsArray[count][1]),
+                "customThree": String(self.fieldsArray[count][2]),
                 "number": i
               });
               count++;
@@ -129,6 +130,7 @@
 
 
           }
+          console.log(self.fields);
         }
         deferred.resolve();
 
