@@ -42,8 +42,8 @@
 
       function _constructor() {
         self.loading_screen = pleaseWait({
-            logo: "app/static-resource/image/freecode.jpg",
-            backgroundColor: '#8EC0F5',
+            logo: "app/static-resource/image/barras.png",
+            backgroundColor: '#fff',
             loadingHtml: "<p class='loading-message' style='color:#000;'>Por favor, aguarde o carregamento.</p>" +
               "<div class = 'sk-spinner sk-spinner-wave' >" +
               "<div class = 'sk-rect1' > </div>" +
