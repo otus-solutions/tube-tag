@@ -22,45 +22,20 @@
     self.isValid = isValid;
     self.build = build;
     self.setFile = setFile;
-    $scope.teste = 'oi';
+    self.showAlert = showAlert;
 
-    self.showTags = function(ev) {
 
-      $mdDialog.show({
-          controller: DialogController,
-          templateUrl: 'app/ux-component/tube-tag/tags-template.html',
-          parent: angular.element(document.body),
-          targetEvent: ev,
-          clickOutsideToClose: true,
-          fullscreen: false // Only for -xs, -sm breakpoints.
-        })
-        .then(function(answer) {
-
-        }, function() {
-
-        });
-
+    function showAlert() {
+      $mdDialog.show(
+        $mdDialog.alert()
+        .parent(angular.element(document.querySelector('#popupContainer')))
+        .clickOutsideToClose(true)
+        .title('ATENÇÃO')
+        .textContent('\n O Nº final máximo é 9999999999')
+        .ariaLabel('erro')
+        .ok('FECHAR')
+      );
     };
-
-    function DialogController($scope, $mdDialog) {
-      var vm = $scope;
-      var bind = this;
-      bind.teste= 'ta loko';
-      vm.fields = self.fields;
-      vm.teste = 'teste';
-      vm.hide = function() {
-        $mdDialog.hide();
-      };
-
-      vm.cancel = function() {
-        console.log(vm);
-        console.log(self);
-        $mdDialog.cancel();
-
-      };
-
-
-    }
 
     function onInit() {
       self.range = [];
@@ -84,15 +59,25 @@
 
     function isValid() {
       _populateRange();
-      if (self.begin <= self.end && self.end!=0 && self.begin!=0) {
+      if (self.begin <= self.end && self.end != 0 && self.begin != 0) {
         self.valid = true;
       } else {
         self.valid = false;
       }
     }
 
+    function validationEnd() {
+      if (self.end > 9999999999) {
+        self.showAlert();
+        $scope.end = '';
+        self.end = '';
+        $scope.begin = '';
+      }
+    }
+
     function _populateRange() {
       self.begin = Number($scope.begin);
+
       if (self.flag) {
         if (self.begin) {
           self.end = self.begin + self.fieldsArray.length - 1;
@@ -102,6 +87,7 @@
       } else {
         self.end = Number($scope.end);
       }
+      validationEnd();
     }
 
     function setFile() {
@@ -122,7 +108,7 @@
 
       _generateLabelFields().then(function(response) {
         $scope.fileName = '';
-        $scope.begin ='';
+        $scope.begin = '';
         $scope.end = '';
         self.valid = false;
         self.flag = false;
@@ -132,7 +118,6 @@
         alert('Failed: ' + reason);
         LoadingScreenService.finish();
       });
-
     }
 
     function _generateLabelFields() {
@@ -141,8 +126,6 @@
       setTimeout(function() {
         if (self.valid) {
           if (self.flag) {
-            console.log(self.fieldsArray);
-            //  self.fieldsArray.forEach(function(line) {
             var index = 0;
             for (var i = self.begin; i <= self.end; i++) {
               self.fields.push({
@@ -154,7 +137,6 @@
               });
               index++;
             }
-            //});
           } else {
             for (var i = self.begin; i <= self.end; i++) {
               self.fields.push({
@@ -189,9 +171,6 @@
         lineFields = [];
       });
     }
-
-
-
   }
 
 }());
