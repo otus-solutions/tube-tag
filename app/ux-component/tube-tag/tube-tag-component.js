@@ -31,7 +31,7 @@
         .parent(angular.element(document.querySelector('#popupContainer')))
         .clickOutsideToClose(true)
         .title('ATENÇÃO')
-        .textContent('\n O Nº final máximo é 9999999999')
+        .textContent('O número máximo de digitos é 10!')
         .ariaLabel('erro')
         .ok('FECHAR')
       );
