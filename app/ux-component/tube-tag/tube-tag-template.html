@@ -42,7 +42,7 @@
 
         </md-tab>
         <md-tab label="UPLOAD">
-          <md-content layout="column"  layout-padding>
+          <md-content layout="column"  class="md-padding">
             <section layout="column" layout-sm="column" layout-align="start start" layout-wrap flex>
 
             <md-button class="md-raised md-primary" aria-label="Upload" id="uploadButton" file-upload="">
@@ -77,13 +77,14 @@
     </section>
     </div>
     <div id="print-page" >
+      <md-button class="no-print  md-mini md-raised " aria-label="Imprimir" onclick="window.print()">
+        <md-icon md-font-set="material-icons">print</md-icon>
+      </md-button>
       <custom-tag ng-if="$ctrl.range" ng-repeat="number in $ctrl.fields track by $index" base="number"></custom-tag>
+      <md-button ng-if="$ctrl.fields.length>10" class="no-print  md-mini md-raised " aria-label="Imprimir" onclick="window.print()">
+        <md-icon md-font-set="material-icons">print</md-icon>
+      </md-button>
     </div>
-    <!-- <md-button ng-if="$ctrl.range" class="no-print md-fab md-fab-bottom-right md-warn md-raised " aria-label="Imprimir" onclick="window.print()">
-      <md-icon md-font-set="material-icons">print</md-icon>
-    </md-button>
-    <md-button ng-if="$ctrl.range" class="no-print md-fab md-fab-bottom-left md-raised " aria-label="Imprimir" ng-click="$ctrl.showTags($event)">
-      <md-icon md-font-set="material-icons">print</md-icon>
-    </md-button> -->
+
 
   </div>
