@@ -1,0 +1,40 @@
+<!-- <div id="print-page" >
+  teste
+  <custom-tag ng-if="$ctrl.range" ng-repeat="number in $ctrl.fields track by $index" base="number"></custom-tag>
+</div> -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<md-dialog class="fullscreen-dialog">
+  <form>
+    <md-toolbar>
+      <div class="md-toolbar-tools md-primary">
+        <h2 style="color: #fff">Etiquetas</h2>
+        <span flex></span>
+         <md-button class="md-icon-button" ng-click="cancel()">
+         <i class="material-icons">close</i>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <span ng-bind="$ctrl.$$parent.fields"> </span>
+        <div id="print-page" >
+          <custom-tag  ng-repeat="number in fields track by $index" base="number"></custom-tag>
+        </div>
+      </div>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <!--<md-button href="http://en.wikipedia.org/wiki/Mango" target="_blank" md-autofocus>
+        More on Wikipedia
+      </md-button>
+      <span flex></span>
+      <md-button ng-click="answer('not useful')">
+       Not Useful
+      </md-button>
+      <md-button ng-click="answer('Fechou')">
+        Fechar
+      </md-button>-->
+    </md-dialog-actions>
+  </form>
+</md-dialog>

@@ -8,12 +8,13 @@
     });
   Controller.$inject = [
     '$q',
+    '$mdDialog',
     '$scope',
     'LoadingScreenService',
     'UploadService'
   ]
 
-  function Controller($q, $scope, LoadingScreenService, UploadService) {
+  function Controller($q, $mdDialog, $scope, LoadingScreenService, UploadService) {
     var self = this;
 
     self.$onInit = onInit;
@@ -21,6 +22,45 @@
     self.isValid = isValid;
     self.build = build;
     self.setFile = setFile;
+    $scope.teste = 'oi';
+
+    self.showTags = function(ev) {
+
+      $mdDialog.show({
+          controller: DialogController,
+          templateUrl: 'app/ux-component/tube-tag/tags-template.html',
+          parent: angular.element(document.body),
+          targetEvent: ev,
+          clickOutsideToClose: true,
+          fullscreen: false // Only for -xs, -sm breakpoints.
+        })
+        .then(function(answer) {
+
+        }, function() {
+
+        });
+
+    };
+
+    function DialogController($scope, $mdDialog) {
+      var vm = $scope;
+      var bind = this;
+      bind.teste= 'ta loko';
+      vm.fields = self.fields;
+      vm.teste = 'teste';
+      vm.hide = function() {
+        $mdDialog.hide();
+      };
+
+      vm.cancel = function() {
+        console.log(vm);
+        console.log(self);
+        $mdDialog.cancel();
+
+      };
+
+
+    }
 
     function onInit() {
       self.range = [];
@@ -44,7 +84,7 @@
 
     function isValid() {
       _populateRange();
-      if (self.begin <= self.end) {
+      if (self.begin <= self.end && self.end!=0 && self.begin!=0) {
         self.valid = true;
       } else {
         self.valid = false;
@@ -79,12 +119,20 @@
     function build() {
       self.fields.splice(0, self.fields.length);
       LoadingScreenService.start();
+
       _generateLabelFields().then(function(response) {
+        $scope.fileName = '';
+        $scope.begin ='';
+        $scope.end = '';
+        self.valid = false;
+        self.flag = false;
+        self.isValid();
         LoadingScreenService.finish();
       }, function(reason) {
         alert('Failed: ' + reason);
         LoadingScreenService.finish();
       });
+
     }
 
     function _generateLabelFields() {
@@ -94,18 +142,18 @@
         if (self.valid) {
           if (self.flag) {
             console.log(self.fieldsArray);
-          //  self.fieldsArray.forEach(function(line) {
-              var index = 0;
-              for (var i = self.begin; i <= self.end; i++) {
-                self.fields.push({
-                  "title": i,
-                  "customOne": self.fieldsArray[index][0],
-                  "customTwo": self.fieldsArray[index][1],
-                  "customThree": self.fieldsArray[index][2],
-                  "number": i
-                });
-                index++;
-              }
+            //  self.fieldsArray.forEach(function(line) {
+            var index = 0;
+            for (var i = self.begin; i <= self.end; i++) {
+              self.fields.push({
+                "title": i,
+                "customOne": self.fieldsArray[index][0],
+                "customTwo": self.fieldsArray[index][1],
+                "customThree": self.fieldsArray[index][2],
+                "number": i
+              });
+              index++;
+            }
             //});
           } else {
             for (var i = self.begin; i <= self.end; i++) {
@@ -121,7 +169,7 @@
         }
         deferred.resolve();
       }, 1000);
-
+      $scope.fields = self.fields;
       return deferred.promise;
     }
 

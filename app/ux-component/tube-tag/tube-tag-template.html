@@ -1,11 +1,15 @@
 <md-content flex layout="column">
   <toolbar-tag class="no-print"></toolbar-tag>
-  <div layout="row" class="no-print" flex>
-    <div layout="column" layout-margin class="no-print" flex>
+
+    <div layout="row" layout-align="start top">
+
+    <div layout="column" class="no-print" layout-align="top start" flex>
+
       <md-tabs md-dynamic-height>
         <md-tab label="SIMPLES">
-          <md-content layout="column" flex="30" layout-padding>
+          <md-content layout="row" layout-margin>
 
+            <section layout="column" layout-align="start start" layout-padding layout-margin>
 
 
             <md-input-container ng-show="!fileName">
@@ -32,17 +36,20 @@
               <label>Nº final</label>
               <input numbers-only ng-model="end" ng-change="$ctrl.isValid()" maxlength="11" required>
             </md-input-container>
-            <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
-              <md-button class="md-raised md-primary" ng-disabled="!$ctrl.valid" ng-click="$ctrl.build()">Gerar</md-button>
+              <!-- <md-button class="md-raised md-primary" ng-disabled="!$ctrl.valid" ng-click="$ctrl.build()">Gerar</md-button> -->
             </section>
           </md-content>
 
         </md-tab>
         <md-tab label="UPLOAD">
-          <md-content layout="column" flex="30" layout-padding>
+          <md-content layout="column"  layout-padding>
+            <section layout="column" layout-sm="column" layout-align="start start" layout-wrap flex>
 
-            <md-input-container ng-if="fileName">
-              <input id="fileInput" ng-disabled="true" aria-label="Arquivo" ng-model="fileName" ng-if="$ctrl.setFile()">
+            <md-button class="md-raised md-primary" aria-label="Upload" id="uploadButton" file-upload="">
+              <md-icon md-font-set="material-icons">file_upload</md-icon> Carregar
+            </md-button> <span class="md-body-1">{{fileName}}</span>
+            <md-input-container ng-if="fileName" class="ng-hide">
+              <input id="fileInput" ng-disabled="true"  aria-label="Arquivo" ng-model="fileName" ng-if="$ctrl.setFile()">
             </md-input-container>
 
 
@@ -58,23 +65,25 @@
               <label>Nº final</label>
               <input numbers-only ng-model="end" ng-change="$ctrl.isValid()" maxlength="11" required>
             </md-input-container>
-            <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
 
-              <md-button class="md-raised md-primary" ng-disabled="!$ctrl.valid" ng-click="$ctrl.build()">Gerar</md-button>
-              <md-button class="no-print md-fab md-fab-bottom-right md-raised md-primary" aria-label="Upload" id="uploadButton" file-upload="">
-                <md-icon md-font-set="material-icons">file_upload</md-icon>
-              </md-button>
+              <!-- <md-button class="md-raised md-primary" ng-disabled="!$ctrl.valid" ng-click="$ctrl.build()">Gerar</md-button> -->
             </section>
+          </md-content>
         </md-tab>
 
       </md-tabs>
+      <section layout="column" layout-align="center center" layout-margin>
+      <md-button class="md-raised md-primary" ng-disabled="!$ctrl.valid" ng-click="$ctrl.build()">Gerar</md-button>
+    </section>
     </div>
-  </div>
-</md-content>
-  <div id="print-page" >
-    <custom-tag ng-if="$ctrl.range" ng-repeat="number in $ctrl.fields track by $index" base="number"></custom-tag>
-  </div>
+    <div id="print-page" >
+      <custom-tag ng-if="$ctrl.range" ng-repeat="number in $ctrl.fields track by $index" base="number"></custom-tag>
+    </div>
+    <!-- <md-button ng-if="$ctrl.range" class="no-print md-fab md-fab-bottom-right md-warn md-raised " aria-label="Imprimir" onclick="window.print()">
+      <md-icon md-font-set="material-icons">print</md-icon>
+    </md-button>
+    <md-button ng-if="$ctrl.range" class="no-print md-fab md-fab-bottom-left md-raised " aria-label="Imprimir" ng-click="$ctrl.showTags($event)">
+      <md-icon md-font-set="material-icons">print</md-icon>
+    </md-button> -->
 
-  <md-button class="no-print md-fab md-fab-bottom-right v md-raised md-primary" aria-label="Imprimir" onclick="window.print()">
-    <md-icon md-font-set="material-icons">print</md-icon>
-  </md-button>
+  </div>
