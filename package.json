@@ -1,0 +1,35 @@
+{
+  "name": "tube-tag",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "gulp browser-sync",
+    "test": "test",
+    "deploy": "gh-pages-deploy",
+    "clean-source": "rimraf README.md src webroot package.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ccem-dev/tube-tag.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ccem-dev/tube-tag/issues"
+  },
+  "homepage": "https://github.com/ccem-dev/tube-tag#readme",
+  "dependencies": {
+    "angular": "^1.6.6",
+    "angular-animate": "^1.6.6",
+    "angular-aria": "^1.6.6",
+    "angular-material": "^1.1.5",
+    "gulp": "^3.9.1",
+    "jsbarcode": "^3.8.0",
+    "please-wait": "0.0.5"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.18.13",
+    "gulp-gh-pages": "^0.5.4"
+  }
+}
