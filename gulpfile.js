@@ -1,4 +1,5 @@
 var gulp = require('gulp');
+var deploy = require('gulp-gh-pages');
 var browserSync = require('browser-sync').create();
 
 gulp.task('browser-sync', function() {
@@ -18,7 +19,13 @@ gulp.task('browser-sync', function() {
     },
     startPath: 'tube-tag/app/'
   });
-
+  /**
+   * Push build to gh-pages
+   */
+  gulp.task('deploy', function () {
+    return gulp.src("./dist/**/*")
+      .pipe(deploy())
+  });
   gulp.watch([
     'app/**/*.html',
     'app/**/*.js',
