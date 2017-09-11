@@ -2,7 +2,20 @@ body {
   position: relative;
   font-family: "raleway",sans-serif;
 
+  overflow: hidden;
 }
+
+[scroll] {
+        position:fixed;
+        top:0;
+        display: flex;
+
+      }
+      [print]{
+        position: fixed;
+        right: 2em;
+        bottom: 1em;
+      }
 
 body p {
   font-family: "raleway",sans-serif;

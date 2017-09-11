@@ -1,6 +1,9 @@
 <md-content flex layout="column">
   <toolbar-tag class="no-print"></toolbar-tag>
-
+  <md-button print class="no-print md-fab md-raised md-warn" aria-label="Imprimir" onclick="window.print()">
+    <md-icon md-font-set="material-icons">print</md-icon>
+  </md-button>
+  
     <div layout="row" layout-align="start top">
 
     <div layout="column" class="no-print" layout-align="top start" flex>
@@ -73,15 +76,12 @@
       <md-button class="md-raised md-primary" ng-disabled="!$ctrl.valid" ng-click="$ctrl.build()">Gerar</md-button>
     </section>
     </div>
-    <div id="print-page" >
-      <md-button class="no-print  md-mini md-raised " aria-label="Imprimir" onclick="window.print()">
-        <md-icon md-font-set="material-icons">print</md-icon>
-      </md-button>
+    <div id="print-page">
+
       <custom-tag ng-if="$ctrl.range" ng-repeat="number in $ctrl.fields track by $index" base="number"></custom-tag>
-      <md-button ng-if="$ctrl.fields.length>10" class="no-print  md-mini md-raised " aria-label="Imprimir" onclick="window.print()">
-        <md-icon md-font-set="material-icons">print</md-icon>
-      </md-button>
+
     </div>
+
     <span flex></span>
 
 
