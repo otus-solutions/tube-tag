@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "production": "rm -rf node_modules package-lock && npm install",
     "start": "gulp browser-sync",
     "test": "test",
     "deploy": "gh-pages-deploy",
