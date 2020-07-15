@@ -18,5 +18,5 @@ A construção de etiquetas utilizando um csv tem como intuito gerar um numero X
 
 > Não utilize header no csv
 
-[Clique aqui para acessar o sistema.](http://104.198.37.213/tube-tag/app/index.html) 
+[Clique aqui para acessar o sistema.](http://tag.otus-solutions.com.br/) 
 
