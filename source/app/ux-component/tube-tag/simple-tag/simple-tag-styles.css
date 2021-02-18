@@ -1,0 +1,24 @@
+@page {
+  size: 60mm 30mm;
+  margin: 0mm;
+}
+
+.simple-tag {
+  width: 55mm;
+  height: 23mm;
+  border-radius: unset;
+  padding: 5px 3px 3px 5px;
+  margin-bottom: 5mm !important;
+}
+
+.simple-tag p {
+  font-size: 12px;
+  line-height: 15px;
+}
+
+.simple-tag .barcode {
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -5%) !important;
+  background: white;
+}
