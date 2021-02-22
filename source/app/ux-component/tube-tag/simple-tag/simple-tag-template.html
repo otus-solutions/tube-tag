@@ -1,10 +1,15 @@
-<div class="label">
+<link href="app/ux-component/tube-tag/simple-tag/simple-tag-styles.css" rel="stylesheet" type="text/css">
+
+<div class="simple-tag label">
   <div class="label-text">
     <p>{{$ctrl.base.number}}</p>
+
     <div ng-style='{"overflow": "hidden","white-space": "nowrap","text-overflow": "ellipsis"}'>
       <span>{{$ctrl.base.customOne}}</span></br>
     </div>
+
     <span>{{$ctrl.base.customTwo}}</span></br>
+    
     <span>{{$ctrl.base.customThree}}</span></br>
   </div>
   <svg id="{{0}}" class="barcode"></svg>

@@ -3,12 +3,13 @@
 
   angular
     .module('tubeTagGenerator')
-    .component('customTag', {
+    .component('simpleTag', {
       transclude: true,
-      templateUrl: 'app/ux-component/tube-tag/custom-tag/custom-tag-template.html',
+      templateUrl: 'app/ux-component/tube-tag/simple-tag/simple-tag-template.html',
       controller: Controller,
       bindings: {
-        base: '='
+        base: '=',
+        tagType: '='
       },
       require: {
         tubeTag: '^tubeTag'
@@ -39,10 +40,10 @@
     self.generator = generator;
     self.$onInit = onInit;
 
-
     function onInit() {
       self.BaseInfo = angular.copy(self.base);
       self.tubeTag.customTag = self;
+      self.type = self.tagType || 'simple';
       self.generator();
     };
 

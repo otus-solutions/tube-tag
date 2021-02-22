@@ -1,0 +1,31 @@
+@page {
+  size: 27mm 10mm;
+  margin: 0mm;
+}
+
+.mini-tag {
+  width: 27mm;
+  height: 9mm;
+  border-radius: 8px;
+}
+
+.mini-tag .label-text {
+  font-size: 7px;
+  text-align: center;
+}
+
+.mini-tag .barcode {
+  position: absolute;
+  height: 7.5mm;
+  width: 27mm;
+}
+
+.mini-tag .barcode text {
+  font: 12px Verdana, Geneva, sans-serif !important;
+  font-weight: bolder !important;
+  letter-spacing: 0.1em;
+}
+
+.mini-tag .barcode > rect:first-child {
+  fill: transparent !important;
+}

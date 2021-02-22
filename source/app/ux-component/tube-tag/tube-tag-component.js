@@ -23,7 +23,13 @@
     self.build = build;
     self.setFile = setFile;
     self.showAlert = showAlert;
+    self.selectedTab = 0;
+    self.tagTypes = ['simple', 'mini']
+    self.built = false;
 
+    function test() {
+      console.log('asd')
+    }
 
     function showAlert() {
       $mdDialog.show(
@@ -48,7 +54,7 @@
     function _fakeLabeGenerator() {
       for (let i = 0; i < 11; i++) {
         self.fields.push({
-          "title": "Título",
+          "title": "LAB",
           "customOne": "Campo 1",
           "customTwo": "Campo 2",
           "customThree": "Campo 3",
@@ -112,6 +118,7 @@
         $scope.end = '';
         self.valid = false;
         self.flag = false;
+        self.built = true;
         self.isValid();
         LoadingScreenService.finish();
       }, function(reason) {
@@ -127,12 +134,13 @@
         if (self.valid) {
           if (self.flag) {
             var index = 0;
+            self.tagType = self.csvType;
             for (var i = self.begin; i <= self.end; i++) {
               self.fields.push({
-                "title": i,
-                "customOne": self.fieldsArray[index][0],
-                "customTwo": self.fieldsArray[index][1],
-                "customThree": self.fieldsArray[index][2],
+                "title": self.fieldsArray[index].title,
+                "customOne": self.fieldsArray[index].customOne,
+                "customTwo": self.fieldsArray[index].customTwo,
+                "customThree": self.fieldsArray[index].customThree,
                 "number": i
               });
               index++;
@@ -140,10 +148,10 @@
           } else {
             for (var i = self.begin; i <= self.end; i++) {
               self.fields.push({
-                "title": i,
-                "customOne": $scope.customOne,
-                "customTwo": $scope.customTwo,
-                "customThree": $scope.customThree,
+                "title": $scope.title || '---',
+                "customOne": $scope.customOne || '---',
+                "customTwo": $scope.customTwo || '---',
+                "customThree": $scope.customThree || '---',
                 "number": i
               });
             }
@@ -159,17 +167,18 @@
       var lines = self.file.split("\n");
       lines.pop();
 
-      var lineFields = [];
+      self.csvType = lines[0].split(",").length === 3 ? 'simple' : 'mini';
 
-      self.fieldsArray = [];
-      lines.forEach(function(line) {
-        line = line.split(",");
-        line.forEach(function(field) {
-          lineFields.push(field);
-        });
-        self.fieldsArray.push(lineFields);
-        lineFields = [];
-      });
+      self.fieldsArray = lines.map(line => {
+        const cells = line.split(",");
+
+        return {
+          title: self.csvType === 'mini' ? cells[0] : '---',
+          customOne: self.csvType === 'simple' ? cells[0] : '---',
+          customTwo: self.csvType === 'simple' ? cells[1] : '---',
+          customThree: self.csvType === 'simple' ? cells[2] : '---'
+        }
+      })
     }
   }
 
